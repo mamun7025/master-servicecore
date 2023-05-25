@@ -2,10 +2,12 @@ package com.mamunrs.servicecore.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.AllArgsConstructor;
+import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -54,6 +56,14 @@ public class AppMainDataSourceConfig {
         Map<String, String> primaryJpaProperties = new HashMap<>();
         primaryJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         primaryJpaProperties.put("hibernate.hbm2ddl.auto", "update");
+//        primaryJpaProperties.put("spring.jpa.hibernate.naming.physical-strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
+//        primaryJpaProperties.put("spring.jpa.hibernate.naming.implicit-strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl");
+//        primaryJpaProperties.put("hibernate.naming.physical-strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
+//        primaryJpaProperties.put("hibernate.naming.implicit-strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl");
+
+//        primaryJpaProperties.put("hibernate.physical_naming_strategy", SpringPhysicalNamingStrategy.class.getName());
+        primaryJpaProperties.put("hibernate.physical_naming_strategy", CamelCaseToUnderscoresNamingStrategy.class.getName());
+        primaryJpaProperties.put("hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName());
 
         return appEntityManagerFactoryBuilder
                 .dataSource(appDataSource)

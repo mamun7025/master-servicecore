@@ -32,7 +32,7 @@ public class ProductDataSourceConfig {
 
 
     @Bean(name = "productDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource-product")
+    @ConfigurationProperties(prefix = "product.datasource")
     public DataSource productDataSource() {
         return DataSourceBuilder.create().build();
     }
