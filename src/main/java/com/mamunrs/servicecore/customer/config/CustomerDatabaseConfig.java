@@ -1,4 +1,4 @@
-package com.mamunrs.servicecore.config.datasource;
+package com.mamunrs.servicecore.customer.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.Map;
 )
 //@AllArgsConstructor
 //@Order(2)
-public class DataSourceCustomerConfigurationFinal {
+public class CustomerDatabaseConfig {
 
 //    @Primary
 //    @Bean(name = "customerDataSourceProperties")
@@ -70,7 +70,7 @@ public class DataSourceCustomerConfigurationFinal {
 
         return customerEntityManagerFactoryBuilder
                 .dataSource(customerDataSource)
-                .packages("com.mamunrs.servicecore.customer.entity")
+                .packages("com.mamunrs.servicecore.customer")
                 .persistenceUnit("customerDS")
                 .properties(primaryJpaProperties)
                 .build();
