@@ -27,8 +27,6 @@ import java.util.Map;
         transactionManagerRef = "customerTransactionManager",
         basePackages = {"com.mamunrs.servicecore.customer.repository"}
 )
-//@AllArgsConstructor
-//@Order(2)
 public class CustomerDatabaseConfig {
 
 //    @Primary

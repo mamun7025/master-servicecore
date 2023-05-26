@@ -1,10 +1,12 @@
 package com.mamunrs.servicecore.config.datasource;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -41,15 +43,18 @@ public class ProductDataSourceConfig {
     public LocalContainerEntityManagerFactoryBean productEntityManagerFactory(
             EntityManagerFactoryBuilder productEntityManagerFactoryBuilder, @Qualifier("productDataSource") DataSource productDataSource) {
 
-        Map<String, String> primaryJpaProperties = new HashMap<>();
-        primaryJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        primaryJpaProperties.put("hibernate.hbm2ddl.auto", "update");
+        Map<String, String> jpaProperties = new HashMap<>();
+        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+
+        jpaProperties.put("hibernate.physical_naming_strategy", CamelCaseToUnderscoresNamingStrategy.class.getName());
+        jpaProperties.put("hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName());
 
         return productEntityManagerFactoryBuilder
                 .dataSource(productDataSource)
                 .packages("com.mamunrs.servicecore.product.entity")
                 .persistenceUnit("productDS")
-                .properties(primaryJpaProperties)
+                .properties(jpaProperties)
                 .build();
     }
 
