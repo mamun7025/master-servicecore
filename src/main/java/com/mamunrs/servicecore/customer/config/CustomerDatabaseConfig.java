@@ -1,13 +1,11 @@
 package com.mamunrs.servicecore.customer.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -29,20 +27,6 @@ import java.util.Map;
 )
 public class CustomerDatabaseConfig {
 
-//    @Primary
-//    @Bean(name = "customerDataSourceProperties")
-//    @ConfigurationProperties("spring.datasource-customer")
-//    public DataSourceProperties customerDataSourceProperties() {
-//        return new DataSourceProperties();
-//    }
-
-//    @Primary
-//    @Bean(name = "customerDataSource")
-//    @ConfigurationProperties("spring.datasource-customer.configuration")
-//    public DataSource customerDataSource(@Qualifier("customerDataSourceProperties") DataSourceProperties customerDataSourceProperties) {
-//        return customerDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
-//    }
-
     @Autowired
     private Environment env;
 
@@ -57,7 +41,6 @@ public class CustomerDatabaseConfig {
     }
 
 
-    //    @Primary
     @Bean(name = "customerEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean customerEntityManagerFactory(
             EntityManagerFactoryBuilder customerEntityManagerFactoryBuilder, @Qualifier("customerDataSource") DataSource customerDataSource) {
@@ -74,7 +57,6 @@ public class CustomerDatabaseConfig {
                 .build();
     }
 
-//    @Primary
     @Bean(name = "customerTransactionManager")
     public PlatformTransactionManager customerTransactionManager(
             @Qualifier("customerEntityManagerFactory") EntityManagerFactory customerEntityManagerFactory) {

@@ -44,15 +44,15 @@ public class UserDataSourceConfig {
 
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean userEntityManager() {
+    public LocalContainerEntityManagerFactoryBean userEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(userDataSource());
-        em.setPackagesToScan(new String[] { "com.baeldung.multipledb.model.user" });
+        em.setPackagesToScan(new String[] { "com.mamunrs.servicecore.user.entity" });
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("user.hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.dialect", env.getProperty("user.hibernate.dialect"));
         em.setJpaPropertyMap(properties);
         return em;
     }
@@ -62,7 +62,7 @@ public class UserDataSourceConfig {
     public PlatformTransactionManager userTransactionManager() {
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(userEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(userEntityManagerFactory().getObject());
         return transactionManager;
     }
 
