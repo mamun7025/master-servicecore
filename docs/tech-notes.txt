@@ -1,1 +1,4 @@
 Access H2 db console
+
+H2-DB open in browser
+http://localhost:7575/project/h2-console
