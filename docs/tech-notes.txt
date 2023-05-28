@@ -14,7 +14,7 @@ Test Controller
 https://spring.io/guides/gs/testing-web/
 https://www.baeldung.com/spring-boot-testing
 https://www.youtube.com/watch?v=JXNOx0ROTq4
-https://howtodoinjava.com/spring-boot2/testing/rest-controller-unit-test-example/
+*** https://howtodoinjava.com/spring-boot2/testing/rest-controller-unit-test-example/
 
 Common question:
 Q1. When to use @RunWith and when @ExtendWith
@@ -26,6 +26,7 @@ https://rieckpil.de/difference-between-mock-and-mockbean-spring-boot-application
 https://medium.com/javarevisited/spring-boot-2-junit-5-mockito-d8e2e5c8a90d
 *** https://www.youtube.com/watch?v=KYkEMuA50yE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> follow method naming pattern
 https://devwithus.com/spring-boot-rest-api-unit-testing/ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> follow method naming pattern
+https://programmingtechie.com/2020/10/16/spring-boot-testing-tutorial-unit-testing-with-junit-5-and-mockito/
 
 
 >>> Web layer test

@@ -35,21 +35,23 @@ public class CustomerControllerTests {
 
     @Test
     public void shouldReturnListSizeOne() {
-        // given
+        // given - precondition or setup
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setCode("C0001");
         customer.setName("Ali Kan");
         List<Customer> allCustomer = Arrays.asList(customer);
 
-        // when
+        // when -  action or the behaviour that we are going test
         Mockito.when(customerService.getAllCustomer()).thenReturn(allCustomer);
-
-        // then
         ResponseEntity<List<Customer>> response = customerController.getAll();
-        List<Customer> listData = response.getBody();
-        assert listData != null;
-        assertThat(listData.size()).isEqualTo(1);
+
+        // then - verify the output
+        List<Customer> resultList = response.getBody();
+        assert resultList != null;
+        assertThat(resultList.size()).isEqualTo(1);
+        assertThat(resultList.get(0).getCode()).isEqualTo(customer.getCode());
+        assertThat(resultList.get(0).getName()).isEqualTo(customer.getName());
     }
 
 
