@@ -1,9 +1,10 @@
 package com.mamunrs.servicecore.customer;
 
 import com.mamunrs.servicecore.customer.entity.Customer;
-import com.mamunrs.servicecore.customer.repository.CustomerRepository;
+import com.mamunrs.servicecore.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -13,10 +14,11 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
-    public ResponseEntity<?> getData(){
-        List<Customer> listData = customerRepository.findAll();
+    @GetMapping("/all")
+    public ResponseEntity<List<Customer>> getAll(){
+        List<Customer> listData = customerService.getAllCustomer();
         return ResponseEntity.ok(listData);
     }
 
