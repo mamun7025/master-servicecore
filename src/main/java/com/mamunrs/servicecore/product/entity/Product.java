@@ -14,6 +14,6 @@ public class Product {
     Long id;
     String code;
     String name;
-    String productCode;
+    String sku;
 
 }

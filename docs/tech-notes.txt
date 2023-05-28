@@ -2,3 +2,54 @@ Access H2 db console
 
 H2-DB open in browser
 http://localhost:7575/project/h2-console
+
+
+Layer for testing
+>>> Web layer
+>>> Service layer
+>>> Persistence layer
+
+
+
+Test Controller
+https://spring.io/guides/gs/testing-web/
+https://www.baeldung.com/spring-boot-testing
+https://www.youtube.com/watch?v=JXNOx0ROTq4
+https://howtodoinjava.com/spring-boot2/testing/rest-controller-unit-test-example/
+
+
+Difference between @Mock, @MockBean and Mockito.mock()
+https://www.baeldung.com/java-spring-mockito-mock-mockbean
+https://stackoverflow.com/questions/44200720/difference-between-mock-mockbean-and-mockito-mock
+https://rieckpil.de/difference-between-mock-and-mockbean-spring-boot-applications/
+
+
+>>> Web layer test
+ @Test
+ public void givenEmployees_whenGetEmployees_thenReturnJsonArray()
+   throws Exception {
+
+     Employee alex = new Employee("alex");
+     List<Employee> allEmployees = Arrays.asList(alex);
+
+     given(service.getAllEmployees()).willReturn(allEmployees);
+
+     mvc.perform(get("/api/employees")
+       .contentType(MediaType.APPLICATION_JSON))
+       .andExpect(status().isOk())
+       .andExpect(jsonPath("$", hasSize(1)))
+       .andExpect(jsonPath("$[0].name", is(alex.getName())));
+ }
+
+
+
+
+>>> Service layer test
+@Test
+public void whenValidName_thenEmployeeShouldBeFound() {
+    String name = "alex";
+    Employee found = employeeService.getEmployeeByName(name);
+
+     assertThat(found.getName())
+      .isEqualTo(name);
+ }
