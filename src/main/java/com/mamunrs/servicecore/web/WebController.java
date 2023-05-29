@@ -7,10 +7,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -18,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import org.apache.commons.io.IOUtils;
 
-//@Controller
+
 @RestController
 @RequestMapping("/ui/")
 public class WebController {
@@ -29,20 +27,6 @@ public class WebController {
     @Autowired
     ResourceLoader resourceLoader;
 
-
-    // Not working
-    @GetMapping("/index")
-    public ModelAndView indexPage(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home.html");
-        return modelAndView;
-    }
-
-    // Not working
-    @GetMapping("/index2")
-    public String indexPage2(){
-        return "index";
-    }
 
     @GetMapping("/home")
     public String loadHomePage() {
@@ -99,8 +83,9 @@ public class WebController {
         try {
             res.setContentType("text/html");
             PrintWriter out = res.getWriter();
-            String rs=this.getCategoryHtml();
-            out.println(rs);rs=null;
+            String rs = this.getCategoryHtml();
+            out.println(rs);
+            rs = null;
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -111,12 +96,11 @@ public class WebController {
         String fileRelPath = file.getPath();
         System.out.println("Relative path: " + fileRelPath);
 
-        String logo = "";
         FileInputStream fis = new FileInputStream(fileRelPath);
-        logo = IOUtils.toString(fis, "UTF-8");
+        String contentString = IOUtils.toString(fis, StandardCharsets.UTF_8);
         fis.close();
-        fis=null;
-        return logo;
+        fis = null;
+        return contentString;
     }
 
 
