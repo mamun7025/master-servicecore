@@ -1,3 +1,9 @@
+http://localhost:7575/ms-core/ui/v2/home
+http://localhost:7575//ms-core/swagger-ui/index.html
+
+
+
+
 Access H2 db console
 
 H2-DB open in browser

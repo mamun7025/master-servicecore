@@ -6,14 +6,26 @@
 </head>
 <body>
 
+<div>
+    <h2>Customer DB Data </h2>
+    <pre id="customerData"></pre>
+</div>
+
+<div>
+    <h2>Product DB Data </h2>
+    <pre id="productData"></pre>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-
 <script>
     $(document).ready(function (){
         $.get( "/ms-core/api/v1/customer/all" , function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
-            // $("#cTotal").text(data.totalReceive);
+            $("#customerData").html(JSON.stringify(data, undefined, 2));
+        });
+        $.get( "/ms-core/api/v1/product/all" , function(data, status){
+            console.log("Data: " + data + "\nStatus: " + status);
+            $("#productData").html(JSON.stringify(data, undefined, 2));
         });
     });
 </script>
