@@ -47,7 +47,7 @@ public class CustomerDatabaseConfig {
 
         Map<String, String> primaryJpaProperties = new HashMap<>();
         primaryJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        primaryJpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        primaryJpaProperties.put("hibernate.hbm2ddl.auto", "update"); // create-drop
 
         return customerEntityManagerFactoryBuilder
                 .dataSource(customerDataSource)
