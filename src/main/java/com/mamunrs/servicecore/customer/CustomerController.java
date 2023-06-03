@@ -3,6 +3,7 @@ package com.mamunrs.servicecore.customer;
 import com.mamunrs.servicecore.customer.entity.Customer;
 import com.mamunrs.servicecore.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class CustomerController {
         List<Customer> listData = customerService.getAllCustomer();
         return ResponseEntity.ok(listData);
     }
+
     @GetMapping("/cache/all")
     public ResponseEntity<List<Customer>> getAllWithCacheHandler(){
         List<Customer> listData = customerService.fetchAllCustomer();

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +25,9 @@ import java.time.Duration;
         havingValue = "true",
         matchIfMissing = false
 )
-public class GenericRedisConfig {
+public class GenRedisConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(GenericRedisConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(GenRedisConfig.class);
 
     @Value("${redis.host:localhost}")
     private String redisHost;
@@ -43,7 +44,8 @@ public class GenericRedisConfig {
     @Value("${redis.timeout:5000}")
     private Integer timeout;
 
-    @Bean
+    @Primary
+    @Bean({"genJedisConnectionFactory"})
     JedisConnectionFactory genericJedisConnectionFactory(){
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory(this.buildPoolConfig());
         connectionFactory.setHostName(this.redisHost);
@@ -60,7 +62,7 @@ public class GenericRedisConfig {
 
     @Primary
     @Bean({"genRedisTemplate"})
-    RedisTemplate<String, Object> genericRedisTemplate(JedisConnectionFactory genericJedisConnectionFactory){
+    RedisTemplate<String, Object> genericRedisTemplate(@Qualifier("genJedisConnectionFactory") JedisConnectionFactory genericJedisConnectionFactory){
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(genericJedisConnectionFactory);
         // redisTemplate.setConnectionFactory(this.genericJedisConnectionFactory());

@@ -2,7 +2,7 @@ package com.mamunrs.servicecore.cache;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mamunrs.servicecore.config.redis.GenericRedisConfig;
+import com.mamunrs.servicecore.config.redis.GenRedisConfig;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @NoArgsConstructor
-@ConditionalOnBean({GenericRedisConfig.class})
+@ConditionalOnBean({GenRedisConfig.class})
 public class GenRedisService {
 
     Logger log = LoggerFactory.getLogger(GenRedisService.class);

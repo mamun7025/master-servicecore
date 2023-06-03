@@ -13,13 +13,11 @@ import java.util.List;
 public class CacheService {
 
     @Autowired
-    CustomerRepository customerRepository;
-
-
+    private CustomerRepository customerRepository;
     private static final String CUSTOMER_CACHE_SESSION = "customer-cache-session";
 
-//    @Cacheable(value = CUSTOMER_CACHE_SESSION, cacheManager = "trackerCacheMgr", unless = "#result.size() == 0", key = "#cacheKey")
-    @Cacheable(value = CUSTOMER_CACHE_SESSION, cacheManager = "trackerCacheMgr")
+
+    @Cacheable(value = CUSTOMER_CACHE_SESSION, cacheManager = "trackerCacheMgr", unless = "#result.size() == 0", key = "#cacheKey")
     public List<Customer> fetchAllCustomer(String cacheKey){
         log.info("Caching fetchAllCustomer for key: {}", cacheKey);
         return customerRepository.findAll();

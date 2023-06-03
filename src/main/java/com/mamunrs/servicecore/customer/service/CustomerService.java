@@ -19,7 +19,7 @@ public class CustomerService {
     }
 
     public List<Customer> fetchAllCustomer(){
-        return cacheService.fetchAllCustomer("All-Customer");
+        return cacheService.fetchAllCustomer("ALL_CUSTOMER_KEY");
     }
 
 }
