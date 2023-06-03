@@ -1,9 +1,14 @@
 package com.mamunrs.servicecore.config.redis;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,9 +17,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 import java.time.Duration;
 
+@Configuration
+@NoArgsConstructor
+@ConditionalOnProperty(
+        name = {"redis.enableRedisCache"},
+        havingValue = "true",
+        matchIfMissing = false
+)
 public class GenericRedisConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(GenericRedisConfig.class);
 
     @Value("${redis.host:localhost}")
     private String redisHost;
@@ -47,7 +59,7 @@ public class GenericRedisConfig {
     }
 
     @Primary
-    @Bean({"genericRedisTemplate"})
+    @Bean({"genRedisTemplate"})
     RedisTemplate<String, Object> genericRedisTemplate(JedisConnectionFactory genericJedisConnectionFactory){
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(genericJedisConnectionFactory);
@@ -58,6 +70,14 @@ public class GenericRedisConfig {
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        return mapper;
     }
 
 

@@ -24,7 +24,7 @@ public class ProductController {
 
     @GetMapping("/cache/all")
     public ResponseEntity<?> getAllProductWithCacheHandler(){
-        List<Product> allProduct = productService.getAllProduct();
+        List<Product> allProduct = productService.fetchAllProduct();
         return ResponseEntity.ok(allProduct);
     }
 

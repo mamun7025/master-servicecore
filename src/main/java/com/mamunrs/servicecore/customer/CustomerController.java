@@ -23,7 +23,7 @@ public class CustomerController {
     }
     @GetMapping("/cache/all")
     public ResponseEntity<List<Customer>> getAllWithCacheHandler(){
-        List<Customer> listData = customerService.getAllCustomer();
+        List<Customer> listData = customerService.fetchAllCustomer();
         return ResponseEntity.ok(listData);
     }
 

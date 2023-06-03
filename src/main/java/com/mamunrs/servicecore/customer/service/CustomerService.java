@@ -10,10 +10,16 @@ import java.util.List;
 public class CustomerService {
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
+    @Autowired
+    private CacheService cacheService;
 
     public List<Customer> getAllCustomer(){
         return customerRepository.findAll();
+    }
+
+    public List<Customer> fetchAllCustomer(){
+        return cacheService.fetchAllCustomer("All-Customer");
     }
 
 }
