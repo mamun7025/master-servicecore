@@ -21,5 +21,10 @@ public class CustomerController {
         List<Customer> listData = customerService.getAllCustomer();
         return ResponseEntity.ok(listData);
     }
+    @GetMapping("/cache/all")
+    public ResponseEntity<List<Customer>> getAllWithCacheHandler(){
+        List<Customer> listData = customerService.getAllCustomer();
+        return ResponseEntity.ok(listData);
+    }
 
 }

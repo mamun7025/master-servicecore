@@ -22,4 +22,10 @@ public class ProductController {
         return ResponseEntity.ok(allProduct);
     }
 
+    @GetMapping("/cache/all")
+    public ResponseEntity<?> getAllProductWithCacheHandler(){
+        List<Product> allProduct = productService.getAllProduct();
+        return ResponseEntity.ok(allProduct);
+    }
+
 }
